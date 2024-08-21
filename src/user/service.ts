@@ -2,7 +2,7 @@ import User from "./entity";
 
 class UserService {
   public async findUserByUserName(userName: string) {
-    console.log(userName);
+    
     const user = await User.findOne({
       userName: userName,
     });

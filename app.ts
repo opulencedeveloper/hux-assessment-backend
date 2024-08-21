@@ -1,6 +1,6 @@
 import express, { NextFunction, Request, Response, Express } from "express";
 import cors from "cors";
-import mongoose from "mongoose";
+import mongoose, { connection } from "mongoose";
 import dotenv from "dotenv";
 import { Server as HttpServer } from "http";
 
@@ -17,6 +17,7 @@ dotenv.config();
 
 const port = process.env.PORT || 8080;
 
+//Definition of a function that starts the server
 const StartServer = () => {
   app.use((req: Request, res: Response, next: NextFunction) => {
     Logging.info(
@@ -24,7 +25,7 @@ const StartServer = () => {
     );
 
     res.on("finish", () => {
-
+      // Log the Response
       Logging.info(
         `Incomming ==> Method : [${req.method}] - Url: [${req.url}] - IP: [${req.socket.remoteAddress}] - status: [${res.statusCode}]`
       );
@@ -37,6 +38,7 @@ const StartServer = () => {
 
   app.use(express.urlencoded({ extended: true }));
 
+  // Cors
   app.use(
     cors({
       origin: "*",
@@ -44,16 +46,15 @@ const StartServer = () => {
     })
   );
 
-  app.use(
-    "/api/v1",
-    AuthRouter,
-    ContactRouter
-  );
+  // Routes
+  app.use("/api/v1", AuthRouter, ContactRouter);
 
+  //Server Health check
   app.get("/api/v1/healthcheck", (_req: Request, res: Response) => {
     res.status(200).json({ status: "UP 🔥🔧🎂" });
   });
 
+  // Invalid url error handling
   app.use((_req: Request, res: Response) => {
     const _error = new Error("Url not found 😟");
 
@@ -82,13 +83,14 @@ const StartServer = () => {
 
 const MONGODB_URI = process.env.MONGODB_URI || "";
 
-console.log("checkkkkkkk", process.env.NODE_ENV);
-
-if (process.env.NODE_ENV !== 'test') {
+if (process.env.NODE_ENV !== "test") {
+  // DB connection
   mongoose
     .connect(MONGODB_URI)
     .then(() => {
       Logging.info(`Database connected 🎂`);
+
+      //Start Server
       StartServer();
     })
     .catch((_error) => {
@@ -100,6 +102,4 @@ if (process.env.NODE_ENV !== 'test') {
   StartServer();
 }
 
-
-  export { app, server };
-
+export { app, server };

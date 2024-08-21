@@ -3,6 +3,7 @@ import bcrypt from "bcrypt";
 
 dotenv.config();
 
+//password hashing
 export const hashPassword = (password: string) => {
   return new Promise((resolve, reject) => {
     bcrypt.genSalt(12, (err, salt) => {

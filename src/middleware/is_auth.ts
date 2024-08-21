@@ -11,7 +11,7 @@ export const isAuth = async (
   res: Response,
   next: NextFunction
 ) => {
-  // Retrieve the Authorization header
+
   const authHeader = req.get("Authorization");
 
   // Check if the Authorization header is present
@@ -26,13 +26,11 @@ export const isAuth = async (
   // Extract the token from the Authorization header
   const token = authHeader.split(" ")[1];
 
-  // Verify the token
   try {
     if (!token) {
       throw new Error("Token missing");
     }
 
-    // Verify the token and decode it
     const decodedToken = jwt.verify(token, process.env.JWT_SECRET!) as DecodedToken;
 
     if (!decodedToken) {
@@ -46,7 +44,6 @@ export const isAuth = async (
     // Attach the user ID to the request object
     (req as CustomRequest).userId = decodedToken.userId;
 
-    // Proceed to the next middleware or route handler
     next();
   } catch (err) {
     return res.status(401).json({

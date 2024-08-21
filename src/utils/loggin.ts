@@ -1,5 +1,6 @@
 import chalk from "chalk";
 
+// Defined a class named 'Logging' that provides static methods for logging messages with different levels of importance
 export default class Logging {
   public static log = (args: any) => this.info(args);
 

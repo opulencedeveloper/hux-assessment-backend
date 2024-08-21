@@ -7,7 +7,7 @@ let mongoServer: MongoMemoryServer;
 export const connectDB = async () => {
   mongoServer = await MongoMemoryServer.create();
   const uri = mongoServer.getUri();
-  await mongoose.connect(uri); // Ensure the correct type is used for connection options
+  await mongoose.connect(uri);
   return mongoose.connection;
 };
 
@@ -40,7 +40,7 @@ afterEach(async () => {
   await clearDB();
 });
 
-// Export the database connection for use in tests
+// Export the database connection for use in tests if needed
 export const db = mongoose.connection;
 
 
