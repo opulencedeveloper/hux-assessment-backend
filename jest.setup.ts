@@ -5,6 +5,7 @@ import { server } from "./app";
 let mongoServer: MongoMemoryServer;
 
 export const connectDB = async () => {
+  //provides an in memory MongoDB server which is good for test.
   mongoServer = await MongoMemoryServer.create();
   const uri = mongoServer.getUri();
   await mongoose.connect(uri);
