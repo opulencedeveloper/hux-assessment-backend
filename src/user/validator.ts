@@ -30,8 +30,8 @@ class UserValidator {
       return next();
     } else {
       return res.status(400).json({
-        message: MessageResponse.Error,
-        description: error.details[0].message,
+        status: MessageResponse.Error,
+        message: error.details[0].message,
         data: null,
       });
     }

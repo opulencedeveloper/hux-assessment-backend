@@ -126,8 +126,8 @@ class ContactValidator {
         }
         else {
             return res.status(400).json({
-                message: enum_1.MessageResponse.Error,
-                description: error.details[0].message,
+                status: enum_1.MessageResponse.Error,
+                message: error.details[0].message,
                 data: null,
             });
         }
