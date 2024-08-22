@@ -4,8 +4,15 @@
 
 The base URL for the API is:
 
-[https://api-nigerianplaces.onrender.com/api/v1](https://api-nigerianplaces.onrender.com/api/v1)
+[https://hux-assessment-backend-production.up.railway.app/api/v1](https://hux-assessment-backend-production.up.railway.app/api/v1)
 
+
+**Install Dependecies:**
+- **Enusre the .env file is setup**
+
+```json
+npm install
+```
 
 **Start Development server:**
 
@@ -22,8 +29,6 @@ npm run build
 ```
 
 **Run the compiled Javascript code**
-
-- **Compled javascript folder:** `dist`
 
 ```json
 npm start
