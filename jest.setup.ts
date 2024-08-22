@@ -1,6 +1,10 @@
 import { MongoMemoryServer } from "mongodb-memory-server";
-import mongoose, { ConnectOptions } from "mongoose";
+import mongoose from "mongoose";
 import { server } from "./app";
+
+
+// Increase the timeout for all tests globally
+jest.setTimeout(10000); 
 
 let mongoServer: MongoMemoryServer;
 
@@ -43,33 +47,3 @@ afterEach(async () => {
 
 // Export the database connection for use in tests if needed
 export const db = mongoose.connection;
-
-
-
-
-// import { MongoMemoryServer } from 'mongodb-memory-server';
-// import mongoose from 'mongoose';
-// import { server } from './app';
-
-// let mongoServer: MongoMemoryServer;
-
-// beforeAll(async () => {
-//   mongoServer = await MongoMemoryServer.create();
-//   const uri = mongoServer.getUri();
-
-//   await mongoose.connect(uri);
-// });
-
-// afterAll(async () => {
-//   await mongoose.disconnect();
-//   await mongoServer.stop();
-//   server.close();
-// });
-
-// afterEach(async () => {
-//   const collections = mongoose.connection.collections;
-//   for (const key in collections) {
-//     const collection = collections[key];
-//     await collection.deleteMany({});
-//   }
-// });
